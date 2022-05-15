@@ -43,8 +43,12 @@ export async function deletePost(id) {
 
 export async function updatePost(id, postFields) {
   try {
-    await Post.findByIdAndUpdate(id, postFields);
-    return await getPost(id);
+    const foundPost = await Post.findByIdAndUpdate(id, postFields);
+    if (foundPost == null) {
+      return foundPost;
+    } else {
+      return await getPost(id);
+    }
   } catch (error) {
     throw new Error(`update post error: ${error}`);
   }

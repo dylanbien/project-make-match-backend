@@ -42,10 +42,14 @@ const handleGetPost = async (req, res) => {
     // use req.body etc to await some contoller function
     const result = await Posts.getPost(req.params.id);
     // send back the result
-    res.json(result);
+    if (result == null) {
+      res.status(404).json({ error: 'could not find by id' });
+    } else {
+      res.json(result);
+    }
   } catch (error) {
     // or catch the error and send back an error
-    res.status(500).json({ error });
+    res.status(404).json({ error });
   }
 };
 
@@ -54,7 +58,11 @@ const handleUpdatePost = async (req, res) => {
     // use req.body etc to await some contoller function
     const result = await Posts.updatePost(req.params.id, req.body);
     // send back the result
-    res.json(result);
+    if (result == null) {
+      res.status(404).json({ error: 'could not find by id' });
+    } else {
+      res.json(result);
+    }
   } catch (error) {
     // or catch the error and send back an error
     res.status(500).json({ error });
@@ -66,7 +74,11 @@ const handleDeletePost = async (req, res) => {
     // use req.body etc to await some contoller function
     const result = await Posts.deletePost(req.params.id);
     // send back the result
-    res.json(result);
+    if (result == null) {
+      res.status(404).json({ error: 'already deleted this post or could not find by id' });
+    } else {
+      res.json(result);
+    }
   } catch (error) {
     // or catch the error and send back an error
     res.status(500).json({ error });
