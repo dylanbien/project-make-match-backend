@@ -1,8 +1,9 @@
 import Post from '../models/post_model';
 
-export async function createPost(postFields) {
+export async function createPost(postFields, author) {
   try {
     const newPost = new Post();
+    newPost.author = author;
     newPost.title = postFields.title;
     newPost.tags = postFields.tags;
     newPost.content = postFields.content;
@@ -25,7 +26,7 @@ export async function getPosts() {
 
 export async function getPost(id) {
   try {
-    const post = await Post.findById(id);
+    const post = await Post.findById(id).populate('author');
     return post;
   } catch (error) {
     throw new Error(`get post error: ${error}`);
