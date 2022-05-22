@@ -5,16 +5,6 @@ import { requireAuth, requireSignin } from './services/passport';
 
 const router = Router();
 
-router.get('/', (req, res) => {
-  res.json({ message: 'welcome to our blog api!' });
-});
-
-/// your routes will go here
-
-// example!
-// on routes ending in /someroute/:someID
-// ----------------------------------------------------
-
 const handleCreatePost = async (req, res) => {
   try {
     // use req.body etc to await some contoller function
@@ -27,8 +17,10 @@ const handleCreatePost = async (req, res) => {
   }
 };
 
-const handleGetPosts = async (req, res) => {
+const handleGetProducts = async (req, res) => {
   try {
+    const tone = req.query.tone
+    const type = req.query.type
     // use req.body etc to await some contoller function
     const result = await Posts.getPosts();
     // send back the result
@@ -39,7 +31,7 @@ const handleGetPosts = async (req, res) => {
   }
 };
 
-const handleGetPost = async (req, res) => {
+const handleGetProduct = async (req, res) => {
   try {
     // use req.body etc to await some contoller function
     const result = await Posts.getPost(req.params.id);
@@ -55,29 +47,14 @@ const handleGetPost = async (req, res) => {
   }
 };
 
-const handleUpdatePost = async (req, res) => {
+const handleUpdateUser = async (req, res) => {
   try {
+    const id = req.params.id
     // use req.body etc to await some contoller function
-    const result = await Posts.updatePost(req.params.id, req.body);
+    const result = await Posts.updatePost(id, req.body);
     // send back the result
     if (result == null) {
       res.status(404).json({ error: 'could not find by id' });
-    } else {
-      res.json(result);
-    }
-  } catch (error) {
-    // or catch the error and send back an error
-    res.status(500).json({ error });
-  }
-};
-
-const handleDeletePost = async (req, res) => {
-  try {
-    // use req.body etc to await some contoller function
-    const result = await Posts.deletePost(req.params.id);
-    // send back the result
-    if (result == null) {
-      res.status(404).json({ error: 'already deleted this post or could not find by id' });
     } else {
       res.json(result);
     }
@@ -105,16 +82,14 @@ const handleSignUp = async (req, res) => {
   }
 };
 
-router.route('/posts/')
-  .post(requireAuth, handleCreatePost)
-  .get(handleGetPosts);
+router.route('/products')
+  .get(handleGetProducts);
 
-router.route('/posts/:id')
-  .get(handleGetPost)
-  .put(requireAuth, handleUpdatePost)
-  .delete(requireAuth, handleDeletePost);
+router.route('/products/:id')
+  .get(handleGetProduct);
 
-router.post('/signin', requireSignin, handleSignIn);
-router.post('/signup', handleSignUp);
+router.post('/user/signin', requireSignin, handleSignIn);
+router.post('/user/signup', handleSignUp);
+router.patch('/user/:id', handleUpdateUser);
 
 export default router;

@@ -1,8 +1,8 @@
 {
-  "name": "express babel eslint node starter",
-  "version": "5.0.0",
-  "description": "",
-  "author": "CS52",
+  "name": "MakeMatch backend",
+  "version": "0.0.1",
+  "description": "a backened for the MakeMatch project",
+  "author": "MakeMatch",
   "main": "src/server.js",
   "scripts": {
     "test": "cypress run",
