@@ -21,6 +21,7 @@
   username: string
   email: string
   password: salted and hashed string
+  style: string
   tone: hex code string
   id: string
 }
@@ -49,7 +50,7 @@ specify the `email` and `password` fields in the body
 returns an object containing a `token` and `user` object without the `password` field
 
 ### POST api/user/signup
-specify the `username`, `email`, `password`, and `tone` fields in the body
+specify the `username`, `email`, `password`, `style`, and `tone` fields in the body
 
 returns an object containing a `token` and `user` object without the `password` field
 
