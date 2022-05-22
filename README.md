@@ -35,7 +35,9 @@
 
 ### GET api/products
 `GET api/products?type={'concealer'|'foundation'}&tone={hex code}`
+
 specify these two query parameters
+
 returns a list of matching `product` objects
 
 ### GET api/products/:id
@@ -43,10 +45,12 @@ returns a `product` object
 
 ### POST api/user/signin
 specify the `email` and `password` fields in the body
+
 returns an object containing a `token` and `user` object without the `password` field
 
 ### POST api/user/signup
 specify the `username`, `email`, `password`, and `tone` fields in the body
+
 returns an object containing a `token` and `user` object without the `password` field
 
 ### PATCH api/user/:id
